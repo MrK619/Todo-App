@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Handleerror from "./loginvalidation";
+
 export default function Login() {
     var check = true;
     const [values, setvalues] = useState({
@@ -13,6 +14,7 @@ export default function Login() {
         check = true;
         event.preventDefault();
         seterror(Handleerror(values));
+        router.push('/signup')
     };
     const handlevalue = (element) => {
         setvalues((prev) => ({
@@ -20,6 +22,7 @@ export default function Login() {
             [element.target.name]: [element.target.value],
         }));
     };
+    
     return (
         <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
             <div className="bg-white p-3 rounded w-25">
@@ -37,7 +40,7 @@ export default function Login() {
                             className="form-control rounded-0"
                             onChange={handlevalue}
                         />
-                        {!error.email && (
+                        {error.email && (
                             <span className="text-danger">{error.email}</span>
                         )}
                     </div>
@@ -52,7 +55,7 @@ export default function Login() {
                             className="form-control rounded-0"
                             onChange={handlevalue}
                         />
-                        {!error.password && (
+                        {error.password && (
                             <span className="text-danger">
                                 {error.password}
                             </span>
